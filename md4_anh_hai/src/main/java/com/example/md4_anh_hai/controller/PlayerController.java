@@ -17,7 +17,7 @@ public class PlayerController {
     @Autowired
     private IPlayerService playerService;
 
-    // Hiển thị danh sách cầu thủ
+
     @GetMapping("")
     public String viewAllPlayers(@RequestParam(defaultValue = "") String searchName, Model model) {
         model.addAttribute("playerList", playerService.getAll());
@@ -25,7 +25,7 @@ public class PlayerController {
         return "view";
     }
 
-    // Form tạo cầu thủ
+
     @GetMapping("/create")
     public String createPlayerForm(Model model) {
         model.addAttribute("player", new Player());
@@ -33,7 +33,6 @@ public class PlayerController {
         return "create";
     }
 
-    // Lưu cầu thủ mới
     @PostMapping("/save")
     public String savePlayer(@ModelAttribute("player") Player player, RedirectAttributes redirectAttributes) {
         try {
@@ -45,7 +44,7 @@ public class PlayerController {
         return "redirect:/player";
     }
 
-    // Form chỉnh sửa cầu thủ
+
     @GetMapping("/edit")
     public String editPlayerForm(@RequestParam("id") Long playerId, Model model, RedirectAttributes redirectAttributes) {
         Optional<Player> playerOptional = playerService.findById(playerId);
@@ -59,7 +58,7 @@ public class PlayerController {
         }
     }
 
-    // Cập nhật cầu thủ
+
     @PostMapping("/update")
     public String updatePlayer(@ModelAttribute("player") Player player, RedirectAttributes redirectAttributes) {
         Optional<Player> existingPlayer = playerService.findById(player.getId());
@@ -76,7 +75,7 @@ public class PlayerController {
         return "redirect:/player";
     }
 
-    // Xóa cầu thủ
+
     @PostMapping("/delete")
     public String deletePlayer(@RequestParam("id") Long playerId, RedirectAttributes redirectAttributes) {
         Optional<Player> playerOptional = playerService.findById(playerId);
