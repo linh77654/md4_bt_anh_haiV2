@@ -35,10 +35,10 @@
         <tr th:each="player, status : ${playerList}">
             <td th:text="${status.index + 1}"></td>
             <td th:text="${player.playerCode}"></td>
-            <td th:text="${player.fullName}"></td>
+            <td th:text="${player.name}"></td>
             <td th:text="${player.birthDate}"></td>
             <td th:text="${player.experience}"></td>
-            <td th:text="${player.position}"></td>
+            <td th:text="${player.location.name}"></td>
             <td>
                 <img th:src="${player.avatarUrl}" alt="Ảnh đại diện" style="width: 100px; height: auto;">
             </td>

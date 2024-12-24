@@ -3,50 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <title>Thêm cầu thủ</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
 </head>
 <body>
 <div class="container mt-5">
     <h1>Thêm cầu thủ mới</h1>
 
     <!-- Form thêm cầu thủ -->
-    <form th:action="@{/player/save}" method="post">
+    <form th:action="@{/player/save}" th:object="${player}" method="post">
         <div class="mb-3">
             <label for="playerCode" class="form-label">Mã cầu thủ</label>
-            <input type="text" id="playerCode" name="playerCode" class="form-control" required/>
+            <input type="text" id="playerCode" th:field="*{playerCode}" class="form-control" required/>
         </div>
 
         <div class="mb-3">
-            <label for="fullName" class="form-label">Họ và tên</label>
-            <input type="text" id="fullName" name="fullName" class="form-control" required/>
+            <label for="name" class="form-label">Họ và tên</label>
+            <input type="text" id="name" th:field="*{name}" class="form-control" required/>
         </div>
 
         <div class="mb-3">
             <label for="birthDate" class="form-label">Ngày sinh</label>
-            <input type="date" id="birthDate" name="birthDate" class="form-control" required/>
+            <input type="date" id="birthDate" th:field="*{birthDate}" class="form-control" required/>
         </div>
 
         <div class="mb-3">
             <label for="experience" class="form-label">Kinh nghiệm</label>
-            <input type="text" id="experience" name="experience" class="form-control" required/>
+            <input type="text" id="experience" th:field="*{experience}" class="form-control" required/>
         </div>
 
         <div class="mb-3">
-            <label for="position" class="form-label">Vị trí</label>
-            <select id="position" name="position" class="form-select" required>
-                <option value="Forward">Tiền đạo</option>
-                <option value="Midfielder">Tiền vệ</option>
-                <option value="Defender">Hậu vệ</option>
-                <option value="Goalkeeper">Thủ môn</option>
+            <label for="location" class="form-label">Vị trí</label>
+            <select class="form-select" id="location" th:field="*{location.id}">
+                <option value="">---Chọn vị trí---</option>
+                <option th:each="location : ${locations}"
+                        th:value="${location.id}"
+                        th:text="${location.name}">
+                </option>
             </select>
         </div>
 
         <div class="mb-3">
             <label for="avatarUrl" class="form-label">Ảnh đại diện (URL)</label>
-            <input type="text" id="avatarUrl" name="avatarUrl" class="form-control"/>
+            <input type="text" id="avatarUrl" th:field="*{avatarUrl}" class="form-control"/>
         </div>
 
         <button type="submit" class="btn btn-primary">Thêm cầu thủ</button>
-        <a href="/player" class="btn btn-secondary">Quay lại</a>
+        <a th:href="@{/player}" class="btn btn-secondary">Quay lại</a>
     </form>
 
     <!-- Hiển thị thông báo -->
