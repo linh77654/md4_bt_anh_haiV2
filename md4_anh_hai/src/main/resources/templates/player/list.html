@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách cầu thủ</title>
+    <th:block th:replace="~{header::library}"></th:block>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div th:replace="~{header :: navbar}"></div>
+<div class="container mt-5">
+    <h1>Danh sách cầu thủ</h1>
+    <div class="mb-3">
+        <button class="btn btn-primary" type="button" onclick="window.location.href='/player/create'">Thêm cầu thủ</button>
+    </div>
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>STT</th>
+            <th>Mã cầu thủ</th>
+            <th>Họ và tên</th>
+            <th>Ngày sinh</th>
+            <th>Kinh nghiệm</th>
+            <th>Vị trí</th>
+            <th>Đội bóng</th>
+            <th>Ảnh đại diện</th>
+            <th>Thao tác</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="player, status : ${player.content}">
+            <td th:text="${status.count + 1}"></td>
+            <td th:text="${player.playerCode}"></td>
+            <td th:text="${player.name}"></td>
+            <td th:text="${player.birthDate}"></td>
+            <td th:text="${player.experience}"></td>
+            <td th:text="${player.position.name}"></td>
+            <td th:text="${player.team.name}"></td>
+            <td>
+                <img th:src="${player.avatarUrl}" alt="Ảnh đại diện" style="width: 100px; height: auto;">
+            </td>
+            <td>
+                <!-- Nút Sửa -->
+                <button class="btn btn-warning">
+                    <a th:href="@{/player/{id}/edit(id=${player.id})}" style="text-decoration: none; color: white;">Sửa</a>
+                </button>
+
+                <!-- Nút Xóa -->
+                <button class="btn btn-danger" data-bs-toggle="modal" th:data-bs-target="'#deleteModal' + ${player.id}">Xóa</button>
+
+                <!-- Modal Xóa -->
+                <div class="modal fade" th:id="'deleteModal' + ${player.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Xóa cầu thủ</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                            </div>
+                            <div class="modal-body">
+                                Bạn có chắc chắn muốn xóa cầu thủ <span th:text="${player.name}"></span>?
+                                <div style="color: red; font-style: italic">
+                                    Hành động này không thể hoàn tác!
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                                <a th:href="@{/player/{id}/delete(id=${player.id})}" class="btn btn-danger">Xác nhận</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="pagination">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                <a class="page-link" th:href="@{|/player?page=0|}">Đầu</a>
+            </li>
+            <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                <a class="page-link" th:href="@{|/player?page=${currentPage - 1}|}">Trước</a>
+            </li>
+            <li class="page-item" th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}"
+                th:classappend="${pageNum == currentPage} ? 'active'">
+                <a class="page-link" th:href="@{|/player?page=${pageNum}|}" th:text="${pageNum + 1}"></a>
+            </li>
+            <li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
+                <a class="page-link" th:href="@{|/player?page=${currentPage + 1}|}">Sau</a>
+            </li>
+            <li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
+                <a class="page-link" th:href="@{|/player?page=${totalPages - 1}|}">Cuối</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+</html>

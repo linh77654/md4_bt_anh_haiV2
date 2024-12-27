@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Player</title>
+  <th:block th:replace="~{header::library}"></th:block>
+  <style>
+    .err {
+      color: red;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+<div th:replace="~{header :: navbar}"></div>
+<div class="container mt-5">
+
+  <form th:action="@{/player/create}" th:object="${player}" method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+      <label for="inputPlayerCode" class="form-label">Player Code</label>
+      <small th:if="${#fields.hasErrors('playerCode')}" th:errors="*{playerCode}" class="err"></small>
+      <input type="text" class="form-control" id="inputPlayerCode" th:field="*{playerCode}" placeholder="Nhập mã cầu thủ"/>
+    </div>
+
+    <div class="mb-3">
+      <label for="inputName" class="form-label">Name</label>
+      <small th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="err"></small>
+      <span th:if="${error}" class="err" style="color: red;">${error}</span>
+      <input type="text" class="form-control" id="inputName" th:field="*{name}" placeholder="Nhập tên cầu thủ"/>
+    </div>
+
+
+    <div class="mb-3">
+      <label for="inputBirthDate" class="form-label">Birth Date</label>
+      <small th:if="${#fields.hasErrors('birthDate')}" th:errors="*{birthDate}" class="err"></small>
+      <input type="date" class="form-control" id="inputBirthDate" th:field="*{birthDate}"/>
+    </div>
+
+    <div class="mb-3">
+      <label for="inputExperience" class="form-label">Experience (Years)</label>
+      <small th:if="${#fields.hasErrors('experience')}" th:errors="*{experience}" class="err"></small>
+      <input type="number" class="form-control" id="inputExperience" th:field="*{experience}" min="0" placeholder="Nhập số năm kinh nghiệm"/>
+    </div>
+
+    <div class="mb-3">
+      <label for="inputPosition" class="form-label">Position</label>
+      <small th:if="${#fields.hasErrors('position.id')}" th:errors="*{position.id}" class="err"></small>
+      <select class="form-select" id="inputPosition" th:field="*{position.id}">
+        <option value="">---Chọn vị trí---</option>
+        <option th:each="pos : ${position}" th:value="${pos.id}" th:text="${pos.name}"></option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="inputTeam" class="form-label">Team</label>
+      <small th:if="${#fields.hasErrors('team.id')}" th:errors="*{team.id}" class="err"></small>
+      <select class="form-select" id="inputTeam" th:field="*{team.id}">
+        <option value="">---Chọn đội bóng---</option>
+        <option th:each="tm : ${team}" th:value="${tm.id}" th:text="${tm.name}"></option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+
+</body>
+</html>
