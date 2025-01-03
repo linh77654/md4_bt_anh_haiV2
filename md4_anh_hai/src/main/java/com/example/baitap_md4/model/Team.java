@@ -1,6 +1,5 @@
-package com.example.model;
+package com.example.baitap_md4.model;
 
-import com.example.baitap_md4.model.Player;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

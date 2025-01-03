@@ -1,4 +1,4 @@
-package com.example.service;
+package com.example.baitap_md4.service;
 
 import com.example.baitap_md4.model.Team;
 import org.springframework.data.domain.Page;

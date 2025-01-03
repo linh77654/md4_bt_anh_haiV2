@@ -1,4 +1,4 @@
-package com.example.repository;
+package com.example.baitap_md4.repository;
 
 import com.example.baitap_md4.model.Player;
 import org.springframework.data.domain.Page;

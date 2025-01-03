@@ -1,4 +1,4 @@
-package com.example.controller;
+package com.example.baitap_md4.controller;
 
 import com.example.baitap_md4.model.Player;
 import com.example.baitap_md4.service.IPlayerService;

@@ -1,4 +1,4 @@
-package com.example.service.impl;
+package com.example.baitap_md4.service.impl;
 
 import com.example.baitap_md4.model.Position;
 import com.example.baitap_md4.repository.IPositionRepository;

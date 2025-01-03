@@ -1,7 +1,5 @@
-    package com.example.model;
+    package com.example.baitap_md4.model;
 
-    import com.example.baitap_md4.model.Position;
-    import com.example.baitap_md4.model.Team;
     import jakarta.persistence.*;
     import jakarta.validation.constraints.NotNull;
     import jakarta.validation.constraints.PastOrPresent;
